@@ -28,7 +28,6 @@ async def create_application_channel(
     everyone = guild.default_role
     commander = find_role(guild, config.ROLE_COMMANDER)
     officer = find_role(guild, config.ROLE_OFFICER)
-    recruit = find_role(guild, config.ROLE_RECRUIT)
 
     overwrites: dict[disnake.Role | disnake.Member, disnake.PermissionOverwrite] = {
         everyone: disnake.PermissionOverwrite(view_channel=False),
@@ -62,14 +61,16 @@ async def create_application_channel(
         overwrites[commander] = staff_ow
     if officer:
         overwrites[officer] = staff_ow
-    if recruit:
-        overwrites[recruit] = disnake.PermissionOverwrite(
-            view_channel=True,
-            send_messages=True,
-            read_message_history=True,
-            attach_files=True,
-            embed_links=True,
-        )
+    hidden = disnake.PermissionOverwrite(view_channel=False)
+    for role_name in (
+        config.ROLE_GUEST,
+        config.ROLE_RECRUIT,
+        config.ROLE_MEMBER,
+        config.ROLE_PAUSE,
+    ):
+        role = find_role(guild, role_name)
+        if role:
+            overwrites[role] = hidden
 
     if category is None:
         category = find_category(guild, config.CATEGORY_RECRUIT)

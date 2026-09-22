@@ -377,13 +377,15 @@ class ApplicationsCog(commands.Cog):
                 target = None
 
         recruit = find_role(inter.guild, config.ROLE_RECRUIT)
+        guest = find_role(inter.guild, config.ROLE_GUEST)
         member_role = find_role(inter.guild, config.ROLE_MEMBER)
         given_classes: list[str] = []
 
         if approve and target:
-            if recruit and recruit in target.roles:
+            drop = [r for r in (recruit, guest) if r and r in target.roles]
+            if drop:
                 try:
-                    await target.remove_roles(recruit, reason="Принят в War Dogs")
+                    await target.remove_roles(*drop, reason="Принят в War Dogs")
                 except disnake.HTTPException:
                     pass
             if member_role:
