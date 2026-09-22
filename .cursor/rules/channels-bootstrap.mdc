@@ -1,0 +1,14 @@
+---
+description: Каналы, bootstrap и оформление сервера Handler
+globs: bot/services/bootstrap.py,bot/services/channel_*.py,bot/cogs/setup.py,config.py
+alwaysApply: false
+---
+
+# Каналы и bootstrap
+
+- Канонические имена — в `config.py` (emoji + `・`)
+- Поиск старых имён — `channel_style.find_*` + алиасы
+- Переоформление: `/сервер оформление` → `ensure_styled_names` + `republish_all`
+- Контент каналов — Components v2 панели, не пачка Embed
+- Не создавать дубликаты каналов: сначала find по алиасу, потом create
+- Тикеты заявок: категория НАБОР, доступ заявитель + Командир + Офицер + Рекрут

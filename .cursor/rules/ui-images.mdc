@@ -1,0 +1,26 @@
+---
+description: Тёмный dashboard-стиль картинок Handler (профиль и баннеры)
+globs: bot/services/ui_style.py,bot/services/profile_card.py,bot/services/branding.py,assets/**
+alwaysApply: false
+---
+
+# UI · картинки
+
+Единый стиль как тёмный dashboard (карточки · золото · скругления).
+
+## Палитра (`ui_style.py`)
+
+- Фон `BG`, карточки `CARD` / `CARD_ALT`, рамка `BORDER`
+- Акцент `GOLD` / `GOLD_SOFT`, текст `WHITE` / `MUTED`
+- Статус/плюс: `GREEN`, ранг: `CYAN`
+
+## Правила
+
+- Рисовать через хелперы: `canvas`, `round_rect`, `pill`, `progress_bar`, `circle_avatar`, `icon_box`
+- Не возвращать оливковый «военный» градиент старых баннеров
+- Новые баннеры — ключ в `BANNER_COPY` + поднять `STYLE_VERSION`, чтобы пересобрались
+- Превью профиля: `assets/profile-preview.png` при проверке
+
+## Профиль
+
+Двухколоночный layout: идентичность слева · стата WARDOGS справа · прогресс Wardog · pills классов.

@@ -1,0 +1,25 @@
+---
+description: Конвенции Python/disnake бота Handler
+globs: bot/**/*.py,main.py,config.py
+alwaysApply: false
+---
+
+# Python · disnake
+
+- Коги: `commands.Cog` + `setup(bot)` в конце файла
+- Кнопки/селекты без View: `on_button_click` / `on_dropdown` + стабильные `custom_id` (`wardogs:…`)
+- Панели каналов: Components v2 — `Container` + `MediaGallery` + `TextDisplay` (`channel_panels.py`)
+- Роли искать через `find_role` / каналы через `find_text_channel` (алиасы имён)
+- Ошибки Discord: ловить `disnake.HTTPException`, не ронять хендлер
+- После `defer` — `followup`; **не** удалять канал заявки до `followup` офицеру
+- ЛС о решении — только `app["user_id"]` (`_notify_applicant`), не автору кнопки
+
+```python
+# ❌ followup после delete канала → Unknown Channel
+await channel.delete()
+await inter.followup.send("ok")
+
+# ✅ сначала followup, потом delete
+await inter.followup.send("ok", ephemeral=True)
+await channel.delete()
+```

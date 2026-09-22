@@ -1,0 +1,32 @@
+---
+description: Ядро проекта Handler / War Dogs — стек, UX, запреты
+alwaysApply: true
+---
+
+# Handler · War Dogs
+
+Discord-бот клана **Handler / War Dogs** (WARDOGS). UX и ответы пользователю — **на русском**.
+
+## Стек
+
+- Python · **disnake** ≥ 2.11 (`InteractionBot`)
+- SQLite через **aiosqlite** (`bot/db.py`)
+- Картинки: **Pillow** + общий стиль `bot/services/ui_style.py`
+- Конфиг: `config.py` · секреты только в `.env`
+
+## Не делать
+
+- Веб-дашборд, экономика, музыка, Discord XP/уровни
+- Выдуманные классы игры — только: Assault, Medic, Support, Recon, Driver, Pilot
+- Classic Embed там, где уже Components v2 (заявка, оформление каналов)
+- Менять `git config` / force-push без явной просьбы
+
+## Ключевые потоки
+
+- Заявка → приватный канал → ЛС кандидату + `#мод-заявки` → канал удалить
+- Стата wardogs.tools: scrape + автообновление раз в 10 мин
+- Имена каналов/категорий — стилизованные (`config.py` + `channel_style.py`)
+
+## Точка входа
+
+`main.py` · коги в `bot/cogs/` · сервисы в `bot/services/`
